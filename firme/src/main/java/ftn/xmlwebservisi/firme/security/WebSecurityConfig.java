@@ -23,7 +23,6 @@ import ftn.xmlwebservisi.firme.service.UserService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	private UserService userService;
 	
@@ -66,12 +65,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// Using AuthenticationManagerBuilder to create an instance of AuthenticationManager
-		// which is used for user authentication
+		// Using AuthenticationManagerBuilder to specify 
+		// which type of authentication is going to be used
 		auth.userDetailsService(userService)
 			.passwordEncoder(bCryptPasswordEncoder());
 	}
 	
+	// Creating a bean of password encoder and exposing it to spring security
 	@Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
