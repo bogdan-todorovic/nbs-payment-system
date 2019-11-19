@@ -22,7 +22,10 @@ public class UserPrincipal extends User implements UserDetails {
 		List<Role> userRoles = super.getRoles();
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		for (Role role : userRoles) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+			List<Permission> permissions = role.getPermissions();
+			for (Permission permission : permissions) {				
+				authorities.add(new SimpleGrantedAuthority(permission.getName()));
+			}
 		}
 		return authorities;
 	}
