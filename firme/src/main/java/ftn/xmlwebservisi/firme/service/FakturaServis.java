@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import ftn.xmlwebservisi.firme.model.Faktura;
@@ -16,6 +17,7 @@ public class FakturaServis {
 	@Autowired
 	private FakturaRepozitorijum fakturaRepozitorijum;
 	
+	@PreAuthorize("hasPermission(authentication, 'fakture:get')")
 	public List<Faktura> nadjiSveFakture() {
 		List<Faktura> fakture = new ArrayList<>();
 		fakturaRepozitorijum.findAll().forEach(fakture::add);
